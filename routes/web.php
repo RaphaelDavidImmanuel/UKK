@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KamarController;
-
+use App\Http\Controllers\PemesananController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,9 +27,13 @@ Route::get('/home', function () {
     return view('hotel');
 });
 
-Route::get('/kamar', [KamarController::class, 'index'])->name('kamar');
-Route::post('/tambah', [KamarController::class, 'tambah'])->name('tambah');
-Route::get('/edit/{id}', [KamarController::class, 'edit'])->name('edit');
-Route::post('/update/{id}', [KamarController::class, 'update'])->name('update');
+// Route::get('/kamar', [KamarController::class, 'index'])->name('kamar');
+// Route::post('/tambah', [KamarController::class, 'tambah'])->name('tambah');
+// Route::get('/edit/{id}', [KamarController::class, 'edit'])->name('edit');
+// Route::post('/update/{id}', [KamarController::class, 'update'])->name('update');
+
+Route::resource('/kamar', KamarController::class);
+
+Route::resource('/pemesanan', PemesananController::class);
 
 

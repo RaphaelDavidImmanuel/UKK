@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kamar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class KamarController extends Controller
 {
@@ -15,7 +16,17 @@ class KamarController extends Controller
     public function index()
     {
         $data = Kamar::all();
-        return view('admin.kamar',compact('data'));
+        $ti = DB::table('Kamars')->select(DB::raw('MAX(RIGHT(no_kamar,7)) as kode'));
+            $tt = "";
+            if($ti->count()>0){
+                foreach($ti->get() as $t){
+                    $tkt = ((int)$t->kode)+1;
+                    $tt = sprintf("%07s", $tkt);
+                }
+            }else{
+                $tt = "0000001";
+            }
+        return view('admin.kamar',compact('data','tt'));
     }
 
     /**
@@ -34,10 +45,24 @@ class KamarController extends Controller
      * @param  \App\Http\Requests\StoreKamarRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function tambah(Request $request)
+    public function store(Request $request)
     {   
-        Kamar::create($request->all());
-        return redirect()->route('kamar')->with('success','Data Berhasil Ditambahkan!!!');
+        $this->validate($request, [
+            'no_kamar' => 'required',
+            'foto' => 'required',
+            'harga' => 'required',
+            'tipe' => 'required'
+        ]);
+
+        $data = Kamar::create($request->all());
+
+        if ($request->hasFile('foto')) {
+            $request->file('foto')->move('imageagenda/', $request->file('foto')->getClientOriginalName());
+            $data->foto = $request->file('foto')->getClientOriginalName();
+            $data->save();
+        }
+
+        return redirect()->route('kamar.index')->with('success', 'Create Success !!');
     }
 
     /**
@@ -61,7 +86,14 @@ class KamarController extends Controller
     {
         $data = Kamar::find($id);
         $data->update($request->all());
-        return redirect()->route('kamar')->with('success', 'Data Berhasil Diubah!!!');
+        
+        if ($request->hasFile('foto')) {
+            $request->file('foto')->move('imageagenda/', $request->file('foto')->getClientOriginalName());
+            $data->foto = $request->file('foto')->getClientOriginalName();
+            $data->save();
+        }
+
+        return redirect()->route('kamar.index')->with('success', 'Data Berhasil Diubah!!!');
 
 
     }
@@ -85,8 +117,10 @@ class KamarController extends Controller
      * @param  \App\Models\Kamar  $kamar
      * @return \Illuminate\Http\Response
      */
-    public function destroy()
+    public function destroy($id)
     {
-       //
+        $data = Kamar::find($id);
+        $data->delete();
+        return redirect()->route('kamar.index');
     }
 }
