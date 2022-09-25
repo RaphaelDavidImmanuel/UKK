@@ -37,54 +37,43 @@
                                         <h3 class="text-center font-weight-light my-4">Register</h3>
                                     </div>
                                     <div class="card-body">
-                                        <form action="{{url('proseslogin')}}" method="POST" id="logForm">
-                                            {{ csrf_field() }}
+                                        <form action="/register" method="POST" id="">
+                                            @csrf
                                             <div class="form-group">
-                                                @error('login_gagal')
-                                                    {{-- <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span> --}}
-                                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                                        {{-- <span class="alert-inner--icon"><i class="ni ni-like-2"></i></span> --}}
-                                                        <span class="alert-inner--text"><strong>Warning!</strong> {{ $message }}</span>
-                                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    @enderror
+                                                <label class="small mb-1" for="inputPassword">Nama</label>
+                                                <input class="form-control py-4" id="inputPassword" type="text" name="name" placeholder="Masukkan Nama"/>
+                                                @if($errors->has('name'))
+                                                <span class="error">{{ $errors->first('name') }}</span>
+                                                @endif
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="small mb-1" for="inputPassword">Username</label>
+                                                <input class="form-control py-4" id="inputPassword" type="text" name="username" placeholder="Masukkan Nama"/>
+                                                @if($errors->has('username'))
+                                                <span class="error">{{ $errors->first('username') }}</span>
+                                                @endif
+                                            </div>
+                                            <div class="form-group">
                                                 <label class="small mb-1" for="inputEmailAddress">Email </label>
-                                                <input
-                                                    class="form-control py-4"
-                                                    id="inputEmailAddress"
-                                                    name="email"
-                                                    type="text"
-                                                    placeholder="Masukkan Username"/>
+                                                <input class="form-control py-4" id="inputEmailAddress" name="email" type="text" placeholder="Masukkan Username"/>
                                                 @if($errors->has('username'))
                                                 <span class="error">{{ $errors->first('username') }}</span>
                                                 @endif
                                             </div>
                                             <div class="form-group">
                                                 <label class="small mb-1" for="inputPassword">Password</label>
-                                                <input
-                                                    class="form-control py-4"
-                                                    id="inputPassword"
-                                                    type="password"
-                                                    name="password"
-                                                    placeholder="Masukkan Password"/>
+                                                <input class="form-control py-4" id="inputPassword" type="password" name="password" placeholder="Masukkan Password"/>
                                                 @if($errors->has('password'))
                                                 <span class="error">{{ $errors->first('password') }}</span>
                                                 @endif
                                             </div>
                                             <div class="form-group">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input class="custom-control-input" id="rememberPasswordCheck" type="checkbox"/>
-                                                    <label class="custom-control-label" for="rememberPasswordCheck">Remember password</label>
-                                                </div>
+                                                <input class="form-control py-4" id="inputPassword" type="hidden" name="level" value="customer"/>
                                             </div>
                                             <div
                                                 class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
                                                 {{-- <a class="small" href="#">Forgot Password?</a> --}}
-                                                <button class="btn btn-primary btn-block" type="submit">Login</button>
+                                                <button class="btn btn-primary btn-block" type="submit">Register</button>
                                             </div>
                                         </form>
                                     </div>

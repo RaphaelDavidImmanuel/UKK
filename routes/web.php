@@ -41,7 +41,8 @@ Route::group(['middleware' => ('auth')], function(){
 
 Route::resource('/pemesanan', PemesananController::class);
 
-Route::get('/register', [AuthController::class, 'register'])->name('register'); 
+Route::get('/register', [AuthController::class, 'register'])->name('register');
+route::post('/register', [AuthController::class, 'store']);
 
 Route::get('/', [AuthController::class, 'index'])->name('login'); 
 Route::post('/proseslogin', [AuthController::class, 'proseslogin'])->name('proseslogin'); 
