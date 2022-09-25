@@ -75,7 +75,7 @@
             </a>
         </li>
 
-        <li class="menu-item {{ Request::is('hotel*') ? 'active' : '' }}">
+        <li class="menu-item {{ Request::is('pemesanan*') ? 'active' : '' }}">
             <a href="/pemesanan" class="menu-link">
                 <i class='bx bxs-city' style="margin-right: 10px"></i>
                 <div data-i18n="Analytics">Hotel</div>

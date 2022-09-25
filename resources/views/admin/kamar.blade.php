@@ -38,6 +38,7 @@
                 <tr>
                     <th>No</th>
                     <th>No Kamar</th>
+                    <th>Gambar</th>
                     <th>Tipe Kamar</th>
                     <th>Harga Kamar</th>
                     <th>Last Update</th>
@@ -49,8 +50,11 @@
                 <tr>
                     <th scope="row">{{ $row->id }}</th>
                     <td>{{ $row->no_kamar }}</td>
-                    <td>{{ $row->harga }}</td>
+                    <td>
+                        <img src="{{ asset('imageagenda/'.$row->foto) }}" alt="" style="width: 50px">
+                    </td>
                     <td>{{ $row->tipe }}</td>
+                    <td>{{ $row->harga }}</td>
                     <td>{{ $row->updated_at->diffForHumans() }}</td>
                     <td class="d-flex">
                         <div class="me-2">
@@ -60,6 +64,11 @@
                                 <i class='bx bxs-edit-alt'></i>
                             </button>
                         </div>
+                        <form method="POST" action="{{ url('kamar/'.$row->id) }}">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" class="btn btn-danger btn-sm btndelete"><i class='bx bx-trash'></i></button>
+                        </form>
                     </td>
                 </tr>
                 @endforeach
@@ -69,7 +78,7 @@
 </div>
 
 {{-- modal tambah starts --}}
-<form method="POST" action="/tambah" enctype="multipart/form-data">
+<form method="POST" action="{{ url('kamar') }}" enctype="multipart/form-data">
     @csrf
     <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -81,16 +90,19 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col mb-lg-2 mb-1">
-                            <label for="nameWithTitle" class="form-label">No Kamar</label>
-                            <input type="text" name="no_kamar" id="nameWithTitle" class="form-control"
-                                placeholder="No Kamar" autofocus />
+                            <input type="hidden" name="no_kamar" id="nameWithTitle" class="form-control" placeholder="No Kamar" autofocus value="{{ 'H-'.$tt }}"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mb-lg-2 mb-1">
+                            <label for="nameWithTitle" class="form-label">Gambar</label>
+                            <input type="file" name="foto" id="nameWithTitle" class="form-control"/>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-6 mb-lg-2 mb-1">
                             <label for="nameWithTitle" class="form-label">Tipe Kamar</label>
-                            <select class="form-select" name="tipe" id="exampleFormControlSelect1"
-                                aria-label="Default select example">
+                            <select class="form-select" name="tipe" id="exampleFormControlSelect1" aria-label="Default select example">
                                 <option value="superior" name="superior">Superior</option>
                                 <option value="deluxe" name="deluxe">Deluxe</option>
                                 <option value="suite" name="suite">Suite</option>
@@ -117,49 +129,59 @@
 
 
 <!-- Modal -->
-<form method="POST" action="/update/{id}">
-    <div class="modal fade" id="modalCenter2-{{ $data->id }}" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalCenterTitle">Edit Kamar</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div class="col mb-lg-2 mb-1">
-                            <label for="nameWithTitle" class="form-label">No Kamar</label>
-                            <input type="text" name="data_center" value="{{ $data->no_kamar }}" id="nameWithTitle"
-                                class="form-control" placeholder="Edit Ticket Trouble" autofocus />
+@foreach ($data as $kamar)    
+    <form method="POST" action="{{ url('kamar/'.$kamar->id) }}" enctype="multipart/form-data">
+        @csrf
+        @method('put')
+        <div class="modal fade" id="modalCenter2-{{ $kamar->id }}" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalCenterTitle">Edit Kamar</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col mb-lg-2 mb-1">
+                                <input type="hidden" name="no_kamar" value="{{ $kamar->no_kamar  }}" id="nameWithTitle"
+                                    class="form-control" placeholder="Edit Ticket Trouble" autofocus />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col mb-lg-2 mb-1">
+                                <label for="nameWithTitle" class="form-label">Gambar</label>
+                                <input type="file" name="foto" id="nameWithTitle" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col mb-lg-2 mb-1">
+                                <label for="nameWithTitle" class="form-label">Tipe Kamar</label>
+                                    <select class="form-select" name="tipe" value="{{ $kamar->tipe }}" id="exampleFormControlSelect1"
+                                        aria-label="Default select example">
+                                        <option value="superior">Superior</option>
+                                        <option value="deluxe">Deluxe</option>
+                                        <option value="suite">Suite</option>
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col mb-lg-2 mb-1">
+                                <label for="nameWithTitle" class="form-label">Harga</label>
+                                <input type="text" name="harga" value="{{ $kamar->harga }}" id="nameWithTitle"
+                                    class="form-control" placeholder="Edit Ticket Trouble" autofocus />
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                         <div class="col mb-lg-2 mb-1">
-                             <label for="nameWithTitle" class="form-label">Tipe Kamar</label>
-                                <select class="form-select" name="tipe" value="{{ $data->tipe }}" id="exampleFormControlSelect1"
-                                    aria-label="Default select example">
-                                    <option value="superior">Superior</option>
-                                    <option value="deluxe">Deluxe</option>
-                                    <option value="suite">Suite</option>
-                                </select>
-                         </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                            Close
+                        </button>
+                        <button type="submit" class="btn btn-primary">Edit</button>
                     </div>
-                    <div class="row">
-                        <div class="col mb-lg-2 mb-1">
-                            <label for="nameWithTitle" class="form-label">Harga</label>
-                            <input type="text" name="data_center" value="{{ $data->harga }}" id="nameWithTitle"
-                                class="form-control" placeholder="Edit Ticket Trouble" autofocus />
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                        Close
-                    </button>
-                    <button type="submit" class="btn btn-primary">Edit</button>
                 </div>
             </div>
         </div>
-    </div>
-</form>
+    </form>
+@endforeach
+
 @endsection
