@@ -8,17 +8,10 @@
         <a href="#services">Service</a>
         <a href="#gallery">Facility</a>
         <a href="#review">Review</a>
-        <a href="#contact">Contact</a>
-        <a href="#book">Reserve</a>
+        <a href="#book">Booking</a>
     </nav>
 
     <div class="icons">
-        <i class="fas fa-search" id="search-btn"></i>
-        <i class="fas fa-user" id="login-btn"></i>
+        <a href="{{ route('login') }}"><i class="fas fa-user" id="login-btn"></i></a>
     </div>
-
-    <form action="" class="search-bar-container">
-        <input type="search" id="search-bar" placeholder="search here...">
-        <label for="search-bar" class="fas fa-search"></label>
-    </form>
 </header>
