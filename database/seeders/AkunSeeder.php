@@ -14,6 +14,7 @@ class AkunSeeder extends Seeder
      */
     public function run()
     {
+        
         $user = [
             [
                 'username' => 'admin',

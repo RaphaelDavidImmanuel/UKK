@@ -56,7 +56,7 @@
 
         <div class="box-container">
             <div class="box">
-                <img src="img/deluxe.jpg" alt="">
+                <img src="img/foto/deluxe.jpg" alt="">
                 <div class="content">
                     <h3>Deluxe Room</h3>
                     <p>Lorem Ipsum is simply dummy text of the farhan and typesetting industry.</p>
