@@ -56,7 +56,7 @@
 
         <div class="box-container">
             <div class="box">
-                <img src="img/foto/deluxe.jpg" alt="">
+                <img src="{{ asset('assets/img/foto/coba1.jpg') }}" alt="">
                 <div class="content">
                     <h3>Deluxe Room</h3>
                     <p>Lorem Ipsum is simply dummy text of the farhan and typesetting industry.</p>
@@ -73,7 +73,7 @@
             </div>
 
             <div class="box">
-                <img src="img/superior.jpg" alt="">
+                <img src="{{ asset('assets/img/foto/deluxe.jpg') }}" alt="">
                 <div class="content">
                     <h3>Superior Room</h3>
                     <p>Lorem Ipsum is simply dummy text of the farhan and typesetting industry.</p>
@@ -90,7 +90,7 @@
             </div>
 
             <div class="box">
-                <img src="img/suite.jpg" alt="">
+                <img src="{{ asset('assets/img/foto/standard.jpg') }}" alt="">
                 <div class="content">
                     <h3>Suite Room</h3>
                     <p>Lorem Ipsum is simply dummy text of the farhan and typesetting industry.</p>
@@ -143,7 +143,7 @@
         <h1 class="heading">Facility</h1>
         <div class="box-container">
             <div class="box">
-                <img src="img/pool.jpg" alt="">
+                <img src="{{ asset('assets/img/foto/fasilitas1.jpg') }}" alt="">
                 <div class="content">
                     <h3>Swimming Pool</h3>
                     <p>Lorem Ipsum is simply dummy text of the farhan and typesetting industry.</p>
@@ -151,7 +151,7 @@
                 </div>
             </div>
             <div class="box">
-                <img src="img/meeting.jpg" alt="">
+                <img src="{{ asset('assets/img/foto/meeting.jpg') }}" alt="">
                 <div class="content">
                     <h3>Meeting Rooms</h3>
                     <p>Lorem Ipsum is simply dummy text of the farhan and typesetting industry.</p>
@@ -159,7 +159,7 @@
                 </div>
             </div>
             <div class="box">
-                <img src="img/restaurant.jpg" alt="">
+                <img src="{{ asset('assets/img/foto/fasilitas2.jpg') }}" alt="">
                 <div class="content">
                     <h3>Restaurant</h3>
                     <p>Lorem Ipsum is simply dummy text of the farhan and typesetting industry.</p>
@@ -179,7 +179,7 @@
             <div class="swiper-wrapper wrapper">
                 <div class="swiper-slide">
                     <div class="box">
-                        <img src="img/women2.jpg" alt="">
+                        <img src="{{ asset('assets/img/foto/cewe.jpg') }}" alt="">
                         <h3>Rahma</h3>
                         <p>Lorem Ipsum is simply dummy text of the farhan and typesetting industry.
                             Lorem Ipsum is simply dummy text of the farhan and typesetting industry
